@@ -11,7 +11,7 @@ inputs:
       https://developer.r3.com/next-gen-corda/#get-corda
   installer-dir-in-archive-path:
     required: false
-    default: 'net/corda/cli/deployment/corda-cli-installer/5.0.0.0/corda-cli-installer-5.0.0.0.zip'
+    default: 'net/corda/cli/deployment/corda-cli-installer/5.0.0.0'
     description: |
       Path of CLI Installer dir within the platform jars archive.
 runs:

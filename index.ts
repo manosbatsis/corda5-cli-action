@@ -69,7 +69,6 @@ async function fetchCordaCliInstaller(downloadUrl: string, effectiveVersion: str
   const installerDirPath = path.join(extractionPath, installerDirInArchivePath);
   const installerZipPath = path.join(installerDirPath, `corda-cli-installer-${effectiveVersion}.zip`);
   const installerUnzippedDir = await tc.extractZip(installerZipPath);
-
   const cachedInstallerDirPath = await tc.cacheDir(installerUnzippedDir, "cordaCli", effectiveVersion);
 
   await installCordaCli(cachedInstallerDirPath);
