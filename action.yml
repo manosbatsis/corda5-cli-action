@@ -1,0 +1,19 @@
+name: 'Setup Corda 5 CLI Action'
+description: 'Setup Corda 5 CLI and add it to your PATH'
+author: 'Manos Batsis'
+inputs:
+  platform-jars-url:
+    required: false
+    default: 'https://download.corda.net/c5-release-pack/E0b6f4f8-8907-47ae-b3cd-7f25ff756c2f-5.0.0-GA/platform-jars-5.0.0.tar.gz'
+    description: |
+      URL for direct download of platform-jars archive.
+      You can find available versions here:
+      https://developer.r3.com/next-gen-corda/#get-corda
+  installer-dir-in-archive-path:
+    required: false
+    default: 'net/corda/cli/deployment/corda-cli-installer/5.0.0.0/corda-cli-installer-5.0.0.0.zip'
+    description: |
+      Path of CLI Installer dir within the platform jars archive.
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
