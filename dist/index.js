@@ -7239,7 +7239,6 @@ const path = __importStar(__nccwpck_require__(1017));
 const child_process_1 = __importDefault(__nccwpck_require__(2081));
 const core = __importStar(__nccwpck_require__(2186));
 const exec = __importStar(__nccwpck_require__(1514));
-const io = __importStar(__nccwpck_require__(7436));
 const tc = __importStar(__nccwpck_require__(7784));
 function run() {
     var _a, _b;
@@ -7270,20 +7269,14 @@ function installCordaCli(cachedToolPath) {
         core.addPath("/github/home/.corda/cli");
     });
 }
-// net/corda/cli/deployment/corda-cli-installer/5.0.0.0
 function setupCordaCli(userSuppliedUrl, installerDirInArchivePath) {
     return __awaiter(this, void 0, void 0, function* () {
         const effectiveUrl = userSuppliedUrl;
-        const matches = effectiveUrl.match(/\b\d+(?:\.\d+)*\b/);
+        const matches = effectiveUrl.substring(effectiveUrl.lastIndexOf('/') + 1).match(/\b\d+(?:\.\d+)*\b/);
         if (!matches) {
-            core.error(`Could not match version in ${matches}`);
             core.setFailed(`Could not match version in ${matches}`);
         }
         const effectiveVersion = matches[0];
-        core.warning(`matches 0:  ${matches[0]}`);
-        core.warning(`matches 1:  ${matches[1]}`);
-        core.warning(`effectiveUrl:  ${effectiveUrl}`);
-        core.warning(`effectiveVersion: ${effectiveVersion}`);
         const cachedToolPath = tc.find("cordaCli", effectiveVersion);
         if (cachedToolPath) {
             core.info(`Found in cache @ ${cachedToolPath}`);
@@ -7307,8 +7300,7 @@ function fetchCordaCliInstaller(downloadUrl, effectiveVersion, installerDirInArc
         }
         const extractionPath = yield tc.extractTar(downloadPath);
         const installerDirPath = path.join(extractionPath, installerDirInArchivePath);
-        const installerZipPath = `${installerDirPath}/corda-cli-installer.zip`;
-        yield io.mv(`${installerDirPath}/corda-cli-installer-*.zip`, installerZipPath);
+        const installerZipPath = path.join(installerDirPath, `corda-cli-installer-${effectiveVersion}.zip`);
         const installerUnzippedDir = yield tc.extractZip(installerZipPath);
         const cachedInstallerDirPath = yield tc.cacheDir(installerUnzippedDir, "cordaCli", effectiveVersion);
         yield installCordaCli(cachedInstallerDirPath);
