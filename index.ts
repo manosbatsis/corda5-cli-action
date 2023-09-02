@@ -40,11 +40,11 @@ async function installCordaCli(cachedToolPath: string) {
 async function setupCordaCli(userSuppliedUrl: string, installerDirInArchivePath: string) {
   const effectiveUrl = userSuppliedUrl;
   const matches = effectiveUrl.match(/\b\d+(?:\.\d+)*\b/);
-
   if (!matches) {
+    core.error(`Could not match version in ${matches}`);
     core.setFailed(`Could not match version in ${matches}`);
   }
-  const effectiveVersion =  matches!![1]
+  const effectiveVersion =  matches!![0]
   core.warning(`effectiveUrl:  ${effectiveUrl}`);
   core.warning(`effectiveVersion: ${effectiveVersion}`);
   const cachedToolPath = tc.find("cordaCli", effectiveVersion);
