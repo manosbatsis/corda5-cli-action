@@ -7247,7 +7247,7 @@ function run() {
             required: false,
             trimWhitespace: true,
         });
-        const installerZipInArchivePath = core.getInput("installer-dir-in-archive-path", {
+        const installerZipInArchivePath = core.getInput("installer-zip-in-archive-path", {
             required: false,
             trimWhitespace: true,
         });
@@ -7269,6 +7269,8 @@ function installCordaCli(cachedToolPath) {
         core.addPath("/github/home/.corda/cli");
     });
 }
+// net/corda/cli/deployment/corda-cli-installer/5.0.0.0/corda-cli-installer-5.0.0.0.zip
+// net/corda/cli/deployment/corda-cli-installer/5.0.0.0/corda-cli-installer-5.0.0.0.zip
 function setupCordaCli(userSuppliedUrl, installerZipInArchivePath) {
     return __awaiter(this, void 0, void 0, function* () {
         const effectiveUrl = userSuppliedUrl;
@@ -7299,7 +7301,9 @@ function fetchCordaCliInstaller(downloadUrl, effectiveVersion, installerZipInArc
             throw new Error(`Failed to download Corda platform jars from ${downloadUrl}: ${(_a = error === null || error === void 0 ? void 0 : error.message) !== null && _a !== void 0 ? _a : error}`);
         }
         const extractionPath = yield tc.extractTar(downloadPath);
+        core.warning(`extractionPath: ${extractionPath}`);
         const installerZipPath = path.join(extractionPath, installerZipInArchivePath);
+        core.warning(`installerZipPath: ${installerZipPath}`);
         const installerUnzippedDir = yield tc.extractZip(installerZipPath);
         const cachedInstallerDirPath = yield tc.cacheDir(installerUnzippedDir, "cordaCli", effectiveVersion);
         yield installCordaCli(cachedInstallerDirPath);

@@ -13,7 +13,7 @@ async function run() {
     required: false,
     trimWhitespace: true,
   });
-  const installerZipInArchivePath = core.getInput("installer-dir-in-archive-path", {
+  const installerZipInArchivePath = core.getInput("installer-zip-in-archive-path", {
     required: false,
     trimWhitespace: true,
   });
@@ -35,7 +35,8 @@ async function installCordaCli(cachedToolPath: string) {
   await exec.exec(`${cachedToolPath}/install.sh`)
   core.addPath("/github/home/.corda/cli");
 }
-
+// net/corda/cli/deployment/corda-cli-installer/5.0.0.0/corda-cli-installer-5.0.0.0.zip
+// net/corda/cli/deployment/corda-cli-installer/5.0.0.0/corda-cli-installer-5.0.0.0.zip
 async function setupCordaCli(userSuppliedUrl: string, installerZipInArchivePath: string) {
   const effectiveUrl = userSuppliedUrl;
   const matches = effectiveUrl.substring(effectiveUrl.lastIndexOf('/')  + 1).match(/\b\d+(?:\.\d+)*\b/);
@@ -66,7 +67,10 @@ async function fetchCordaCliInstaller(downloadUrl: string, effectiveVersion: str
   }
 
   const extractionPath = await tc.extractTar(downloadPath);
+
+  core.warning(`extractionPath: ${extractionPath}`);
   const installerZipPath = path.join(extractionPath, installerZipInArchivePath);
+  core.warning(`installerZipPath: ${installerZipPath}`);
   const installerUnzippedDir = await tc.extractZip(installerZipPath);
   const cachedInstallerDirPath = await tc.cacheDir(installerUnzippedDir, "cordaCli", effectiveVersion);
 
