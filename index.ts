@@ -41,6 +41,8 @@ async function setupCordaCli(userSuppliedUrl: string, installerDirInArchivePath:
   const effectiveUrl = userSuppliedUrl;
   const effectiveVersion = effectiveUrl.match(/^(.*)V(\d+\.\d+\.\d+(?:\+\d+)?)/)?.reverse()[0]!!;
 
+  core.warning(`effectiveUrl:  ${effectiveUrl}`);
+  core.warning(`effectiveVersion: ${effectiveVersion}`);
   const cachedToolPath = tc.find("cordaCli", effectiveVersion);
   if (cachedToolPath) {
     core.info(`Found in cache @ ${cachedToolPath}`);

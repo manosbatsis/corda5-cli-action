@@ -3,7 +3,7 @@ name: Tests
 on: [push]
 
 jobs:
-  hello_world_job:
+  setup-corda5-cli-action:
     runs-on: ubuntu-latest
     name: A job to say hello
     steps:
