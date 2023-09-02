@@ -7266,11 +7266,9 @@ function run() {
 function installCordaCli(cachedToolPath) {
     return __awaiter(this, void 0, void 0, function* () {
         yield exec.exec(`${cachedToolPath}/install.sh`);
-        core.addPath("/github/home/.corda/cli");
+        core.addPath("/home/github/.corda/cli");
     });
 }
-// net/corda/cli/deployment/corda-cli-installer/5.0.0.0/corda-cli-installer-5.0.0.0.zip
-// net/corda/cli/deployment/corda-cli-installer/5.0.0.0/corda-cli-installer-5.0.0.0.zip
 function setupCordaCli(userSuppliedUrl, installerZipInArchivePath) {
     return __awaiter(this, void 0, void 0, function* () {
         const effectiveUrl = userSuppliedUrl;
