@@ -9,11 +9,11 @@ inputs:
       URL for direct download of platform-jars archive.
       You can find available versions here:
       https://developer.r3.com/next-gen-corda/#get-corda
-  installer-dir-in-archive-path:
+  installer-zip-in-archive-path:
     required: false
-    default: 'net/corda/cli/deployment/corda-cli-installer/5.0.0.0'
+    default: 'net/corda/cli/deployment/corda-cli-installer/5.0.0.0/corda-cli-installer-5.0.0.0.zip'
     description: |
-      Path of CLI Installer dir within the platform jars archive.
+      Path of CLI Installer zipfile within the platform jars archive.
 runs:
   using: 'node16'
   main: 'dist/index.js'
