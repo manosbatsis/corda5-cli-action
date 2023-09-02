@@ -7272,10 +7272,16 @@ function installCordaCli(cachedToolPath) {
 }
 // net/corda/cli/deployment/corda-cli-installer/5.0.0.0
 function setupCordaCli(userSuppliedUrl, installerDirInArchivePath) {
-    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         const effectiveUrl = userSuppliedUrl;
-        const effectiveVersion = (_a = effectiveUrl.match(/^(.*)V(\d+\.\d+\.\d+(?:\+\d+)?)/)) === null || _a === void 0 ? void 0 : _a.reverse()[0];
+        const matches = effectiveUrl.match(/\b\d+(?:\.\d+)*\b/);
+        if (!matches) {
+            core.error(`Could not match version in ${matches}`);
+            core.setFailed(`Could not match version in ${matches}`);
+        }
+        const effectiveVersion = matches[0];
+        core.warning(`matches 0:  ${matches[0]}`);
+        core.warning(`matches 1:  ${matches[1]}`);
         core.warning(`effectiveUrl:  ${effectiveUrl}`);
         core.warning(`effectiveVersion: ${effectiveVersion}`);
         const cachedToolPath = tc.find("cordaCli", effectiveVersion);
