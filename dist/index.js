@@ -7237,6 +7237,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const path = __importStar(__nccwpck_require__(1017));
 const child_process_1 = __importDefault(__nccwpck_require__(2081));
+const os_1 = __importDefault(__nccwpck_require__(2037));
 const core = __importStar(__nccwpck_require__(2186));
 const exec = __importStar(__nccwpck_require__(1514));
 const tc = __importStar(__nccwpck_require__(7784));
@@ -7265,8 +7266,10 @@ function run() {
 }
 function installCordaCli(cachedToolPath) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield exec.exec(`${cachedToolPath}/install.sh`);
-        core.addPath("/home/github/.corda/cli");
+        const out = yield exec.exec(`${cachedToolPath}/install.sh`);
+        const homeDir = path.join(os_1.default.homedir(), ".corda/cli");
+        core.warning(`homeDir: ${homeDir}`);
+        core.addPath(homeDir);
     });
 }
 function setupCordaCli(userSuppliedUrl, installerZipInArchivePath) {

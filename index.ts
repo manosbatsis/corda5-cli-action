@@ -1,6 +1,6 @@
 import * as path from "path";
 import cp from "child_process";
-
+import os from 'os';
 import * as core from "@actions/core";
 import * as exec from "@actions/exec";
 import { HttpClient } from "@actions/http-client";
@@ -32,8 +32,10 @@ async function run() {
 }
 
 async function installCordaCli(cachedToolPath: string) {
-  await exec.exec(`${cachedToolPath}/install.sh`)
-  core.addPath("/home/github/.corda/cli");
+  const out = await exec.exec(`${cachedToolPath}/install.sh`);
+  const homeDir = path.join(os.homedir(), ".corda/cli");
+  core.warning(`homeDir: ${homeDir}`);
+  core.addPath(homeDir);
 }
 
 async function setupCordaCli(userSuppliedUrl: string, installerZipInArchivePath: string) {
