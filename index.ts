@@ -19,7 +19,7 @@ async function run() {
     const effectiveVersion = await setupCordaCli(userSuppliedUrl, installerZipInArchivePath);
     core.debug(`Successfully set up Corda CLI ${effectiveVersion}`);
 
-    core.startGroup("Corda Cli help:");
+    core.startGroup("Corda Cli info:");
     cp.execSync(`corda-cli.sh -h`)
     core.endGroup();
 
