@@ -3,10 +3,7 @@ import cp from "child_process";
 import os from 'os';
 import * as core from "@actions/core";
 import * as exec from "@actions/exec";
-import { HttpClient } from "@actions/http-client";
-import * as io from "@actions/io";
 import * as tc from "@actions/tool-cache";
-import { compare } from "compare-versions";
 
 async function run() {
   const userSuppliedUrl = core.getInput("platform-jars-url", {
