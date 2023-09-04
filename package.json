@@ -60,7 +60,7 @@
                 "README.md"
               ],
               "from": "\\bcorda5-cli-action@v.*",
-              "to": "corda5-cli-action@v\"${nextRelease.version}\"",
+              "to": "corda5-cli-action@v${nextRelease.version}",
               "results": [
                 {
                   "file": "README.md",
