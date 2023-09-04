@@ -31,8 +31,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - run: npm ci
-      - run: npm run test:unit
+      - run: npm run build
+      - run: npm run test
   # See https://semantic-release.gitbook.io/semantic-release/recipes/ci-configurations/github-actions
   release:
     name: Release
