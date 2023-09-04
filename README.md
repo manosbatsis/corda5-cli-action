@@ -20,7 +20,7 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       - name: Setup Corda CLI
-        uses: manosbatsis/setup-corda5-cli-action@test17
+        uses: manosbatsis/setup-corda5-cli-action@v1
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
