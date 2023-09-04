@@ -3,7 +3,7 @@
 Adds Corda 5 CLI to your [GitHub actions](https://github.com/features/actions). 
 Works well with [corda5-testutils](https://github.com/manosbatsis/corda5-testutils). 
 
-Example workflow fragment:
+Example workflow fragment bellow:
 
 ```yaml
 jobs:
