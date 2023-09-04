@@ -63,6 +63,3 @@ jobs:
       - name: Release Version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
-      - name: Publish Version
-        uses: technote-space/release-github-actions@v6
