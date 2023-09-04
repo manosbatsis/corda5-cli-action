@@ -57,8 +57,8 @@
           "replacements": [
             {
               "files": ["README.md"],
-              "from": "\\b        uses: manosbatsis/corda5-cli-action@v.*",
-              "to": "        uses: manosbatsis/corda5-cli-action@v\"${nextRelease.version}\"",
+              "from": "\\bcorda5-cli-action@v.*",
+              "to": "corda5-cli-action@v\"${nextRelease.version}\"",
               "results":
               [
                 {
