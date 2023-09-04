@@ -52,22 +52,6 @@
       ],
       "@semantic-release/npm",
       [
-        "semantic-release-replace-plugin",
-        {
-          "replacements": [
-            {
-              "files": [
-                ".env",
-                ".env.*"
-              ],
-              "from": "\\bVITE_REACT_APP_VERSION=.*",
-              "to": "VITE_REACT_APP_VERSION=${nextRelease.version}",
-              "countMatches": true
-            }
-          ]
-        }
-      ],
-      [
         "@semantic-release/git",
         {
           "assets": [
