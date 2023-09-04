@@ -35,8 +35,8 @@ jobs:
       - run: npm run build
       - run: npm run test
   # See https://semantic-release.gitbook.io/semantic-release/recipes/ci-configurations/github-actions
-  release:
-    name: Release
+  semver:
+    name: Semantic Version
     runs-on: ubuntu-latest
     needs: build
     # Only release if build succeeded and from master branch only
