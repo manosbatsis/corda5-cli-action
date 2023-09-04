@@ -56,7 +56,7 @@
         {
           "replacements": [
             {
-              "files": ["foo/__init__.py"],
+              "files": ["README.md"],
               "from": "manosbatsis/corda5-cli-action@v\".*\"",
               "to": "manosbatsis/corda5-cli-action@v1.0.5\"${nextRelease.version}\"",
               "results":
