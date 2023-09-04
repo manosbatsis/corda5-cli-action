@@ -1,5 +1,5 @@
 {
-  "name": "setup-corda5-cli-action",
+  "name": "corda5-cli-action",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
