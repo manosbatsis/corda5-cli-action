@@ -3,7 +3,9 @@
 #    tags:
 #      - "v*"
 
-on: create
+#on: create
+on:
+  workflow_dispatch:
 
 name: Release
 jobs:
