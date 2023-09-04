@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3](https://github.com/manosbatsis/corda5-cli-action/compare/v1.0.2...v1.0.3) (2023-09-04)
+
+
+### Bug Fixes
+
+* ci release ([0480108](https://github.com/manosbatsis/corda5-cli-action/commit/0480108f5e1b352b7d666fea46799050c0951297))
+
 ## [1.0.2](https://github.com/manosbatsis/corda5-cli-action/compare/v1.0.1...v1.0.2) (2023-09-04)
 
 
