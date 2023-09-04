@@ -14,7 +14,6 @@ async function run() {
     required: false,
     trimWhitespace: true,
   });
-
   try {
     const effectiveVersion = await setupCordaCli(userSuppliedUrl, installerZipInArchivePath);
     core.debug(`Successfully set up Corda CLI ${effectiveVersion}`);

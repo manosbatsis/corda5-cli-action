@@ -52,6 +52,28 @@
       ],
       "@semantic-release/npm",
       [
+        "semantic-release-replace-plugin",
+        {
+          "replacements": [
+            {
+              "files": ["foo/__init__.py"],
+              "from": "manosbatsis/corda5-cli-action@v\".*\"",
+              "to": "manosbatsis/corda5-cli-action@v1.0.5\"${nextRelease.version}\"",
+              "results":
+              [
+                {
+                  "file": "README.md",
+                  "hasChanged": true,
+                  "numMatches": 1,
+                  "numReplacements": 1
+                }
+              ],
+              "countMatches": true
+            }
+          ]
+        }
+      ],
+      [
         "@semantic-release/git",
         {
           "assets": [
