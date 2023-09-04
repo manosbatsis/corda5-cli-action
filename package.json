@@ -1,6 +1,6 @@
 {
   "name": "corda5-cli-action",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "description": "Adds Corda5 CLI to your GitHub actions",
   "main": "dist/index.js",
