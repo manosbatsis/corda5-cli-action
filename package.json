@@ -1,6 +1,6 @@
 {
   "name": "corda5-cli-action",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "description": "Adds Corda5 CLI to your GitHub actions",
   "main": "dist/index.js",
@@ -56,11 +56,12 @@
         {
           "replacements": [
             {
-              "files": ["README.md"],
+              "files": [
+                "README.md"
+              ],
               "from": "\\bcorda5-cli-action@v.*",
               "to": "corda5-cli-action@v\"${nextRelease.version}\"",
-              "results":
-              [
+              "results": [
                 {
                   "file": "README.md",
                   "hasChanged": true,
