@@ -27,3 +27,6 @@ jobs:
           arguments: build test
 ```
 
+## Feedback
+
+Issues, PRs etc. welcome. You can also try pinging me on https://cordaledger.slack.com
