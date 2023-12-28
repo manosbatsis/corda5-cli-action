@@ -20,7 +20,7 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       - name: Setup Corda CLI
-        uses: manosbatsis/corda5-cli-action@v1.0.7
+        uses: manosbatsis/corda5-cli-action@v2.0.0
         with:
           cli-version: '5.1.0'
           # Or use custom location, e.g. 
