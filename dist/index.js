@@ -7243,17 +7243,15 @@ const exec = __importStar(__nccwpck_require__(1514));
 const tc = __importStar(__nccwpck_require__(7784));
 const cliResolverConfigsByVersion = new Map([
     [
-        "5.0.0",
+        "5.0.1",
         {
-            platformJarsUrl: 'https://download.corda.net/c5-release-pack/E0b6f4f8-8907-47ae-b3cd-7f25ff756c2f-5.0.0-GA/platform-jars-5.0.0.tar.gz',
-            installerZipInArchivePath: 'net/corda/cli/deployment/corda-cli-installer/5.0.0.0/corda-cli-installer-5.0.0.0.zip'
+            installerZipInArchiveUrl: 'https://github.com/corda/corda-runtime-os/releases/download/release-5.0.1.0/corda-cli-installer-5.0.1.0.zip'
         }
     ],
     [
         "5.1.0",
         {
-            platformJarsUrl: 'https://download.corda.net/c5-release-pack/f82c7008-3b72-48fb-8e25-5ca38a9483b1-5.1.0/platform-jars-5.1.0.tar.gz',
-            installerZipInArchivePath: 'net/corda/cli/deployment/corda-cli-installer/5.1.0.0/corda-cli-installer-5.1.0.0.zip'
+            installerZipInArchiveUrl: 'https://github.com/corda/corda-runtime-os/releases/download/release-5.1.0.0/corda-cli-installer-5.1.0.0.zip'
         }
     ],
 ]);
@@ -7264,30 +7262,19 @@ function run() {
             required: false,
             trimWhitespace: true,
         });
-        let platformJarsUrl = core.getInput("platform-jars-url", {
+        let installerZipInArchiveUrl = core.getInput("cli-installer-zip-url", {
             required: false,
             trimWhitespace: true,
         });
-        let installerZipInArchivePath = core.getInput("installer-zip-in-archive-path", {
-            required: false,
-            trimWhitespace: true,
-        });
-        // Either version or custom location accepted and required
-        if (!cliVersion && !platformJarsUrl) {
-            core.setFailed(`Either cli-version input or platform-jars-url and installer-zip-in-archive-path inputs must be specified`);
-        }
-        // ... but not both
-        if (cliVersion && platformJarsUrl) {
-            core.setFailed(`Either cli-version input or platform-jars-url and installer-zip-in-archive-path inputs are accepted but not both`);
+        // Either version or custom location is required
+        if (!cliVersion && !installerZipInArchiveUrl) {
+            core.setFailed(`Either cli-version input or cli-installer-zip-url inputs must be specified`);
         }
         // If a custom location is used
         if (!cliVersion) {
-            // Custom location requires both Jar URL and archive path
-            if (!platformJarsUrl || !installerZipInArchivePath) {
-                core.setFailed(`Both platform-jars-url and installer-zip-in-archive-path inputs are required for custom location`);
-            }
             // Infer version
-            const matches = platformJarsUrl.substring(platformJarsUrl.lastIndexOf('/') + 1).match(/\b\d+(?:\.\d+)*\b/);
+            const matches = installerZipInArchiveUrl.substring(installerZipInArchiveUrl.lastIndexOf('/') + 1)
+                .match(/\b\d+(?:\.\d+)*\b/);
             if (!matches) {
                 core.setFailed(`Could not match version in ${matches}`);
             }
@@ -7299,11 +7286,10 @@ function run() {
                 core.setFailed(`No predefined config found for CLI version: ${cliVersion}`);
             }
             const predefinedConfig = cliResolverConfigsByVersion.get(cliVersion);
-            platformJarsUrl = predefinedConfig.platformJarsUrl;
-            installerZipInArchivePath = predefinedConfig.installerZipInArchivePath;
+            installerZipInArchiveUrl = predefinedConfig.installerZipInArchiveUrl;
         }
         try {
-            yield setupCordaCli({ cliVersion, platformJarsUrl, installerZipInArchivePath });
+            yield setupCordaCli({ cliVersion, installerZipInArchiveUrl });
             core.debug(`Successfully set up Corda CLI ${cliVersion}`);
             core.startGroup("Corda Cli info:");
             child_process_1.default.execSync(`corda-cli.sh -h`);
@@ -7328,9 +7314,9 @@ function setupCordaCli(cliInfo) {
         if (cachedToolPath) {
             core.info(`Found in cache @ ${cachedToolPath}`);
             yield installCordaCli(cachedToolPath);
-            return cliInfo.platformJarsUrl;
+            return cliInfo.installerZipInArchiveUrl;
         }
-        core.debug(`Fetching cordaCli from ${cliInfo.platformJarsUrl}")`);
+        core.debug(`Fetching cordaCli from ${cliInfo.installerZipInArchiveUrl}")`);
         yield fetchCordaCliInstaller(cliInfo);
     });
 }
@@ -7339,16 +7325,13 @@ function fetchCordaCliInstaller(cliInfo) {
     return __awaiter(this, void 0, void 0, function* () {
         let downloadPath;
         try {
-            downloadPath = yield tc.downloadTool(cliInfo.platformJarsUrl, undefined);
+            downloadPath = yield tc.downloadTool(cliInfo.installerZipInArchiveUrl, undefined);
         }
         catch (error) {
-            throw new Error(`Failed to download Corda platform jars from ${cliInfo.platformJarsUrl}: ${(_a = error === null || error === void 0 ? void 0 : error.message) !== null && _a !== void 0 ? _a : error}`);
+            throw new Error(`Failed to download Corda platform jars from ${cliInfo.installerZipInArchiveUrl}: ${(_a = error === null || error === void 0 ? void 0 : error.message) !== null && _a !== void 0 ? _a : error}`);
         }
-        const extractionPath = yield tc.extractTar(downloadPath);
-        core.warning(`extractionPath: ${extractionPath}`);
-        const installerZipPath = path.join(extractionPath, cliInfo.installerZipInArchivePath);
-        core.warning(`installerZipPath: ${installerZipPath}`);
-        const installerUnzippedDir = yield tc.extractZip(installerZipPath);
+        core.warning(`Downloaded CLI archive in: ${downloadPath}`);
+        const installerUnzippedDir = yield tc.extractZip(downloadPath);
         const cachedInstallerDirPath = yield tc.cacheDir(installerUnzippedDir, "cordaCli", cliInfo.cliVersion);
         yield installCordaCli(cachedInstallerDirPath);
     });
