@@ -31,6 +31,11 @@ jobs:
           arguments: build test
 ```
 
+## Examples
+
+You can find a complete example built on top of CSDE at the [CSDE-cordapp-integration-testing](https://github.com/manosbatsis/CSDE-cordapp-integration-testing) repo.
+There is also a relevant Medium article [here](https://medium.com/@manosbatsis/corda5-integration-testing-4e98d6a195cd). 
+
 ## Feedback
 
 Issues, PRs etc. welcome. You can also try pinging me on https://cordaledger.slack.com
